@@ -1,0 +1,13 @@
+name = "BacktestingEV"
+uuid = "26241a87-59c2-45c6-ba41-bed88bdf3a71"
+authors = ["Armand Mauro"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
