@@ -1,6 +1,11 @@
 module BacktestingEV
 
-export greet_your_package_name
-include("C:\\Users\\arman\\.julia\\dev\\BacktestingEV\\src\\function.jl")
+
+include("back_testing_fct.jl")
+include("annexes.jl")
+include("criterias.jl")
+include("threshold_selection.jl")
+include("datas_models.jl")
+
 
 end
