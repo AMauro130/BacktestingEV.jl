@@ -1,6 +1,11 @@
 module BacktestingEV
 
-export greet_your_package_name
-include("function.jl")
+
+include("back_testing_fct.jl")
+include("annexes.jl")
+include("criterias.jl")
+include("threshold_selection.jl")
+include("datas_models.jl")
+
 
 end
