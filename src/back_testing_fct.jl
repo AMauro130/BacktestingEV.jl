@@ -13,7 +13,6 @@ using KernelDensity
 using GLM
 using Interact
 using Fourier
-using FindPeaks
 using LinearAlgebra
 using CurveFit
 using Decimals
