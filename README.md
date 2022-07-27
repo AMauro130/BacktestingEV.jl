@@ -73,7 +73,7 @@ Thus, the following table will help you to choose the most suitable algorithm :
 </div>
 
 <div align="center">
-	*These are percentage absolute relative error*
+	<*These are percentage absolute relative error*>
 </div>
 
 
