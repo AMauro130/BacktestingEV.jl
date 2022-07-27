@@ -1,6 +1,14 @@
 # BacktestingEV
 
+## Presentation
+
+**Development of a Back-Testing Procedure in Julia**
+
 This package will allow you to backtest your forecasting model.
+
+
+## Installation
+
 ```
 pkg> add https://github.com/AMauro130/BacktestingEV.jl.git
 ```
@@ -8,10 +16,6 @@ Then
 ```
 using BacktestingEV
 ```
-
-## Presentation
-
-**Development of a Back-Testing Procedure in Julia**
 
 
 ## How to choose the appropriate threshold selection algorithm
