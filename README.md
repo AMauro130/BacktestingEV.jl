@@ -67,7 +67,7 @@ You are now ready to back-test your model!
 
 To extract the extreme values from a distribution, you can choose from **6 algorithms based on very different methods**.
 From 8 datasets of distinct values with very particular distributions associated, we applied all these functions and compared the results with the expectations in the array below.
-These expectations come from our visual intuition in terms of extreme values theory.
+	These expectations come from our visual intuition in terms of extreme values theory. 
 
 Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
 
