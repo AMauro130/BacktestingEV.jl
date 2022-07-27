@@ -28,8 +28,8 @@ A meaninful part of the work has been granted to the **Extreme Values Theory (EV
 
 ## Requirement
 
-To use this package properly, you need to provide _2 objects_ : _1 vector_ and _1 matrix_
-
+To use this package properly, you need to provide _2 objects_ : **1 vector** (1 by n) for the *real data* and **1 matrix** (m by n) containing the predictions.
+*Note : (n rows by m columns)*
 
 ## How to choose the appropriate threshold selection algorithm
 
