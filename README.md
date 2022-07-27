@@ -3,6 +3,9 @@
 This package will allow you to backtest your forecasting model.
 ```
 pkg> add https://github.com/AMauro130/BacktestingEV.jl.git
+```
+Then
+```
 using BacktestingEV
 ```
 
