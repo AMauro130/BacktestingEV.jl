@@ -45,7 +45,7 @@ model = convert_to_matrix("D:\\users\\your_project\\simulation\\model.csv")
 *Here it is n = 1800 and k = 10000*
 
 <div id="header" align="center">
-	<img src="https://user-images.githubusercontent.com/92920225/181226632-66a8719f-2f97-49a9-a1e3-b048c56bf298.png" alt="data example">
+	<img src="https://user-images.githubusercontent.com/92920225/181226632-66a8719f-2f97-49a9-a1e3-b048c56bf298.png" alt="data example" width=50% height=50%>
 </div>
 
 <div id="header" align="center">
