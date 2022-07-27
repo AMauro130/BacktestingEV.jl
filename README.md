@@ -28,9 +28,29 @@ A meaninful part of the work has been granted to the **Extreme Values Theory (EV
 
 ## Requirement
 
-To use this package properly, you need to provide _2 objects_ : **1 vector** (1 by n) for the *real data* and **1 matrix** (m by n) containing the predictions.
+To use this package properly, you need to provide _2 objects_ : **1 vector** (with length n) for the *real data* and **1 matrix** (m by n) containing the predictions.
 
 *Note : (n rows by m columns)*
+
+
+###### Example
+
+From a CSV file :
+
+```
+data = convert_to_matrix("D:\\users\\your_project\\simulation\\data.csv")
+model = convert_to_matrix("D:\\users\\your_project\\simulation\\model.csv")
+```
+
+*Here it is n = 1800 and k = 10000*
+
+<div id="header" align="center">
+	<img src="https://user-images.githubusercontent.com/92920225/181226632-66a8719f-2f97-49a9-a1e3-b048c56bf298.png" alt="data example">
+</div>
+
+<div id="header" align="center">
+	<img src="https://user-images.githubusercontent.com/92920225/181226837-36d93d00-334e-4fef-bca1-77ca70c1f9b1.png" alt="data example">
+</div>
 
 
 ## How to choose the appropriate threshold selection algorithm
