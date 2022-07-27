@@ -1,5 +1,8 @@
 # BacktestingEV
 
+***If you need to back-test your forecasting model as complexe as it might be, you have stumbled upon the solution !***
+
+
 ## Installation
 
 ```
@@ -19,12 +22,19 @@ We provide you a certain amount of functions to be applied to a prediction model
 You will be able to use some simple back-testing functions (as analysing the average values of prediction) and also more complexe ones to evaluate the extreme values of the model.
 A meaninful part of the work has been granted to the Extreme Values Theory (EVT).
 
-Notice : throughout this project we note Extreme Values as EV.
+Remark : throughout this project we note Extreme Values as EV.
+
+
+## Requirement
+
+To use this package properly, you need to provide _2 objects_ : _1 vector_ and _1 matrix_
 
 
 ## How to choose the appropriate threshold selection algorithm
 
 **This table helps you to choose the algorithm**
+
+To extract the extreme values from a distribution, you can choose from 6 algorithms based on very different methods.
 
 
 <div id="header" align="center">
