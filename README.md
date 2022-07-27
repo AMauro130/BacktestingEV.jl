@@ -23,7 +23,7 @@ using BacktestingEV
 This package will allow you to **back-test your forecasting model**.
 We provide you a certain amount of functions to be applied to a prediction model within the known data.
 
-You will be able to use some simple back-testing functions (as analysing the average values of prediction) and also more complexe ones to evaluate the extreme values of the model.
+You will be able to use some simple back-testing functions (as analysing the average values of prediction) and also more complexe ones to evaluate the extreme values of a model.
 A meaninful part of the work has been granted to the **Extreme Values Theory (EVT)**.
 
 *Remark : throughout this project we note Extreme Values as EV.*
@@ -69,6 +69,8 @@ To extract the extreme values from a distribution, you can choose from **6 algor
 From 8 datasets of distinct values with very particular distributions associated, we applied all these functions and compared the results with the expectations in the array below.
 
 These expected values come from our visual intuition in terms of extreme values theory. This means, for example with this distribution :
+
+
 
 Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
 
