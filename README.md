@@ -64,16 +64,15 @@ You are now ready to back-test your model !
 ## How to choose the appropriate threshold selection algorithm
 
 To extract the extreme values from a distribution, you can choose from 6 algorithms based on very different methods.
+From 8 datasets of distinct values with very particular distributions associated, we applied all these functions and regrouped the results below.
 
-
-This table helps you to choose the algorithm
+Thus, the following table will help you to choose the most suitable algorithm :
 
 <div id="header" align="center">
 	<img src="https://user-images.githubusercontent.com/92920225/181231445-f95f5611-ec50-4c68-839a-86465a3a36f8.png" alt="help table">
 </div>
 
-
-absolute relative error
+*These are percentage absolute relative error*
 
 
 ## References
