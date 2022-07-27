@@ -54,7 +54,7 @@ model = convert_to_matrix("D:\\users\\your_project\\simulation\\model.csv")
 </div>
 
 *Model :*
-<div id="header" align="center">
+<div align="center">
 	<img src="https://user-images.githubusercontent.com/92920225/181226837-36d93d00-334e-4fef-bca1-77ca70c1f9b1.png" alt="model	 example">
 </div>
 
@@ -63,12 +63,12 @@ You are now ready to back-test your model !
 
 ## How to choose the appropriate threshold selection algorithm
 
-To extract the extreme values from a distribution, you can choose from 6 algorithms based on very different methods.
+To extract the extreme values from a distribution, you can choose from **6 algorithms based on very different methods**.
 From 8 datasets of distinct values with very particular distributions associated, we applied all these functions and regrouped the results below.
 
 Thus, the following table will help you to choose the most suitable algorithm :
 
-<div id="header" align="center">
+<div align="center">
 	<img src="https://user-images.githubusercontent.com/92920225/181231445-f95f5611-ec50-4c68-839a-86465a3a36f8.png" alt="help table">
 </div>
 
