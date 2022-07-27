@@ -1,16 +1,5 @@
 # BacktestingEV
 
-## Presentation
-
-This package will allow you to back-test your forecasting model.
-We provide you a certain amount of functions to be applied to a prediction model within the known data.
-
-You will be able to use some simple back-testing functions (as analysing the average values of prediction) and also more complexe ones to evaluate the extreme values of the model.
-A meaninful part of the work has been granted to the Extreme Values Theory (EVT).
-
-Notice : throughout this project we note Extreme Values as EV.
-
-
 ## Installation
 
 ```
@@ -20,6 +9,17 @@ Then
 ```
 using BacktestingEV
 ```
+
+
+## Presentation
+
+This package will allow you to back-test your forecasting model.
+We provide you a certain amount of functions to be applied to a prediction model within the known data.
+
+You will be able to use some simple back-testing functions (as analysing the average values of prediction) and also more complexe ones to evaluate the extreme values of the model.
+A meaninful part of the work has been granted to the Extreme Values Theory (EVT).
+
+Notice : throughout this project we note Extreme Values as EV.
 
 
 ## How to choose the appropriate threshold selection algorithm
