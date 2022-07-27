@@ -72,7 +72,9 @@ Thus, the following table will help you to choose the most suitable algorithm :
 	<img src="https://user-images.githubusercontent.com/92920225/181231445-f95f5611-ec50-4c68-839a-86465a3a36f8.png" alt="help table">
 </div>
 
-*These are percentage absolute relative error*
+<div align="center">
+	*These are percentage absolute relative error*
+</div>
 
 
 ## References
