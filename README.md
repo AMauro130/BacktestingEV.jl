@@ -57,7 +57,7 @@ model = convert_to_matrix("D:\\users\\your_project\\simulation\\model.csv")
 
 *Model :*
 <div align="center">
-	<img src="https://user-images.githubusercontent.com/92920225/181226837-36d93d00-334e-4fef-bca1-77ca70c1f9b1.png" alt="model	 example">
+	<img src="https://user-images.githubusercontent.com/92920225/181226837-36d93d00-334e-4fef-bca1-77ca70c1f9b1.png" alt="model example">
 </div>
 
 You are now ready to back-test your model!
@@ -70,7 +70,9 @@ From 8 datasets of distinct values with very particular distributions associated
 
 These expected values come from our visual intuition in terms of extreme values theory. This means, for example with this distribution :
 
-
+<div align="center">
+	<img src="https://user-images.githubusercontent.com/92920225/181459418-d1d0fa19-af73-423e-bafc-d2bd5c42ec64.png" alt="histogram	example" width=60% height=60%>
+</div>
 
 Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
 
