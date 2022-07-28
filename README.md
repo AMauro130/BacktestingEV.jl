@@ -93,7 +93,7 @@ Thus, according to your model the following table will help you to choose the mo
 
 
 
-These are the errors between the thresholds selected using our visual intuition and the ones returned by the algorithms. They depict percentages relative to the expected visual guesses; having been calculated as (formula)
+*These are the errors between the thresholds selected using our visual intuition and the ones returned by the algorithms. They depict percentages relative to the expected visual guesses; having been calculated as*
 ```
 (visual-result)./abs.(result)
 ```
