@@ -83,6 +83,8 @@ We can assume that 4 could be chosen.
 
 <div align="center">
 	----------------
+
+	
 </div>
 
 Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
