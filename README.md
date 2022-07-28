@@ -68,7 +68,7 @@ You are now ready to back-test your model!
 To extract the extreme values from a distribution, you can choose from **6 algorithms based on very different methods**.
 From 7 datasets of distinct values with very particular distributions associated, we applied all these functions and compared the results with the expectations in the array below.
 
-These expected values come from our visual intuition in terms of extreme values theory. This means that we use a natural way to determine the threshold from which values could be considered as "extreme" (EVT):
+These expected values come from our visual intuition in terms of extreme values theory. This means that we use a natural way to **determine the threshold from which values could be considered as "extreme" (EVT)**:
 - Plot the histogram of your distribution;
 - Have a look at the right of the histogram (right tail);
 - Find an approximative threshold.
@@ -85,7 +85,7 @@ We can assume that 4 could be chosen.
 	----------------
 </div>
 
-Thus, according to your model the following table will help you to choose the most suitable algorithm (numbered from 1 to 6).
+Thus, according to your model the following table will help you to **choose the most suitable algorithm** (numbered from 1 to 6).
 
 <div align="center">
 	<img src="https://user-images.githubusercontent.com/92920225/181465068-2569f34d-33cd-4843-bf8b-aa33fe33e1e6.png" alt="help table">
