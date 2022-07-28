@@ -92,7 +92,10 @@ Thus, according to your model the following table will help you to choose the mo
 </div>
 
 <div align="center">
-	These are percentage absolute relative error between our visual intuition and the real return of the algorithms.
+	These are the errors between the thresholds selected using our visual intuition and the ones returned by the algorithms. They depict percentages relative to the expected visual guesses; having been calculated as (formula)
+	```
+	(visual-result)./abs.(result)
+	```
 </div>
 
 
