@@ -79,7 +79,7 @@ For example, with this distribution taken from a job salaries dataset:
 	<img src="https://user-images.githubusercontent.com/92920225/181459418-d1d0fa19-af73-423e-bafc-d2bd5c42ec64.png" alt="histogram	example" width=60% height=60%>
 </div>
 
-
+We can assume that 4 could be chosen.
 
 Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
 
