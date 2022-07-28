@@ -91,12 +91,13 @@ Thus, according to your model the following table will help you to choose the mo
 	<img src="https://user-images.githubusercontent.com/92920225/181465068-2569f34d-33cd-4843-bf8b-aa33fe33e1e6.png" alt="help table">
 </div>
 
-<div align="center">
-	These are the errors between the thresholds selected using our visual intuition and the ones returned by the algorithms. They depict percentages relative to the expected visual guesses; having been calculated as (formula)
-	```
-	(visual-result)./abs.(result)
-	```
-</div>
+
+
+These are the errors between the thresholds selected using our visual intuition and the ones returned by the algorithms. They depict percentages relative to the expected visual guesses; having been calculated as (formula)
+```
+(visual-result)./abs.(result)
+```
+
 
 
 ## References
