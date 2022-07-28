@@ -83,8 +83,6 @@ We can assume that 4 could be chosen.
 
 <div align="center">
 	----------------
-
-	
 </div>
 
 Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
@@ -94,7 +92,7 @@ Thus, the following table will help you to choose the most suitable algorithm (n
 </div>
 
 <div align="center">
-	These are percentage absolute relative error between (visual intuition and real return of the algorithms)
+	These are percentage absolute relative error between our visual intuition and the real return of the algorithms
 </div>
 
 
@@ -102,4 +100,5 @@ Thus, the following table will help you to choose the most suitable algorithm (n
 
 Here are the links to the datasets used in the table for the threshold selecrtion:
 
+Also some sources about EVT
 (to fill in)
