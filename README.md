@@ -66,7 +66,7 @@ You are now ready to back-test your model!
 ## How to choose the appropriate threshold selection algorithm
 
 To extract the extreme values from a distribution, you can choose from **6 algorithms based on very different methods**.
-From 8 datasets of distinct values with very particular distributions associated, we applied all these functions and compared the results with the expectations in the array below.
+From 7 datasets of distinct values with very particular distributions associated, we applied all these functions and compared the results with the expectations in the array below.
 
 These expected values come from our visual intuition in terms of extreme values theory. This means, for example with this distribution :
 
@@ -77,7 +77,7 @@ These expected values come from our visual intuition in terms of extreme values 
 Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
 
 <div align="center">
-	<img src="https://user-images.githubusercontent.com/92920225/181231445-f95f5611-ec50-4c68-839a-86465a3a36f8.png" alt="help table">
+	<img src="https://user-images.githubusercontent.com/92920225/181465068-2569f34d-33cd-4843-bf8b-aa33fe33e1e6.png" alt="help table">
 </div>
 
 <div align="center">
