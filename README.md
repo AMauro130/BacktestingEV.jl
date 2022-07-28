@@ -85,14 +85,14 @@ We can assume that 4 could be chosen.
 	----------------
 </div>
 
-Thus, the following table will help you to choose the most suitable algorithm (numbered from 1 ot 6)
+Thus, according to your model the following table will help you to choose the most suitable algorithm (numbered from 1 to 6).
 
 <div align="center">
 	<img src="https://user-images.githubusercontent.com/92920225/181465068-2569f34d-33cd-4843-bf8b-aa33fe33e1e6.png" alt="help table">
 </div>
 
 <div align="center">
-	These are percentage absolute relative error between our visual intuition and the real return of the algorithms
+	These are percentage absolute relative error between our visual intuition and the real return of the algorithms.
 </div>
 
 
