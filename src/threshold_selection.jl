@@ -5,37 +5,46 @@ HILL ESTIMATOR APPLIED TO THE 10% EV
 
 =#
 
-
+"""
+Returns the Hill estimator on a distribution of order k.
+"""
 function hill_estimator(dist,k)
     n = length(dist)
     res = sum([log(dist[n-i+1])-log(dist[n-k]) for i in 1:k])./k
     return res
 end
 
-# !!! do not apply this function to the whole data !!!
+
+"""
+Returns the result of the Hill estimator.
+
+- To apply to the whole data
+- Will apply the Hill estimator on the most 10% extreme values. We assume that the threshold is part of these 10%.
+"""
 function apply_hill(dist)
     dist = sort(dist)
     n = length(dist)
     k1 = Int(round(0.1*n))
-    # k1 = n
     k2 = Int(round(0.9*n))
     dist = dist[k2:end]
     res = []
     for i in 1:k1-1
         append!(res,hill_estimator(dist,i))
     end
-    # return scatter(res)
     return res
 end
 
 
 #useful for the magic number
-function over_stop(deriv,thres)
-    deriv = replace(deriv, NaN => 0)     #if error
-    n = length(deriv)
-    deriv = abs.(deriv)
+"""
+Returns the first position from which the "data" exceeds the threshold "thres"
+"""
+function over_stop(data,thres)
+    data = replace(data, NaN => 0)     #if error
+    n = length(data)
+    data = abs.(data)
     i = 1
-    while (deriv[i]<thres)&&(i<n)
+    while (data[i]<thres)&&(i<n)
         i+=1
     end
     return i
@@ -51,7 +60,12 @@ NORMALIZATION AND DENORMALIZATION
 
 =#
 
+"""
+Returns a normalized distribution between 0 and 1.
 
+- 0 for the minimum "min" and 1 for the maximum "max"; "len" stands for length.
+- Returns normalized distribution, minimum, maximum and length.
+"""
 function normalization(dist)
     min = minimum(dist)
     max = maximum(dist)
@@ -60,6 +74,12 @@ function normalization(dist)
     return res,max,min,len
 end
 
+
+"""
+Return the rebuilt inital distribution from the normalized one, the maximum, the minimum and the length.
+
+- "max", "min" and "len" must be the parameters of the initial distribution.
+"""
 function denormalization(dist,max,min,len)
     res = dist .* len .+ min
     return res
@@ -80,13 +100,20 @@ end
 
 
 
-"""
+#=
 
-DETERMINE THE THRESHOLD OF EV 1
+DETERMINE THRESHOLD 1
 
 (based on the area under the curve, the difference between the regression and the real estipmator)
 (used with the hill estimator)
 
+=#
+
+
+"""
+Returns the regression model of the left side of the distribution.
+
+- 6th order polynomial regression
 """
 function reg_new_left(dist)
     y = dist
@@ -97,6 +124,11 @@ function reg_new_left(dist)
     return y1
 end
 
+"""
+Returns the regression model of the right side of the distribution.
+
+- 1st order polynomial regression
+"""
 function reg_new_right(dist)
     y = dist
     x = 1:length(dist)
@@ -106,6 +138,11 @@ function reg_new_right(dist)
     return y1
 end
 
+"""
+Returns the relative error between the distribution and the regression model.
+
+- This applies on both left and right sides.
+"""
 function err(dist1,dist2,reg1,reg2)
     e1 = relative_error(dist1,reg1)
     e2 = relative_error(dist2,reg2)
@@ -114,6 +151,11 @@ function err(dist1,dist2,reg1,reg2)
     return abs(m1),abs(m2)
 end
 
+"""
+Returns moment at which the Hill estimator becomes linear.
+
+- It compares both errors on left and right sides, when they are comparable it returns the threshold.
+"""
 function find_threshold_for_real(hill)
     n = length(hill)
     i = 0
@@ -140,9 +182,15 @@ function find_threshold_for_real(hill)
         append!(res,border)
     end
     return border
-    # return res
 end
 
+
+"""
+DETERMINE THRESHOLD OF EV 1
+
+- Based on the difference between the regression and the real estimator.
+- Used with the hill estimator.
+"""
 function determine_threshold1(dist)
     n = length(dist)
     dist_r,max,min,len = normalization(dist)
@@ -163,12 +211,15 @@ end
 
 #=
 
-DETERMINE THE THRESHOLD OF EV 2
+DETERMINE THRESHOLD OF EV 2
 
 (based on the regression of the derivative of the hill estimator)
 
 =#
 
+"""
+R
+"""
 function line_reg(x,y)
     data = DataFrame(X=x, Y=y)
     res = lm(@formula(Y ~ X), data)
@@ -178,7 +229,9 @@ function line_reg(x,y)
     return res
 end
 
-
+"""
+R
+"""
 function creator_function_regression(x,y)
     res = line_reg(x,y)                        # linear regression
     meanA,meanB = coeftable(res).cols[1,:][1]
@@ -197,6 +250,10 @@ function creator_function_regression(x,y)
     return valUpLow
 end
 
+
+"""
+R
+"""
 function is_ev_test(ul)
     ul_bis = diff_values(ul)
     n = length(ul_bis)
@@ -215,6 +272,10 @@ function is_ev_test(ul)
     return ul[i]
 end
 
+
+"""
+R
+"""
 function determine_threshold2(dist)
     dist_r,max,min,len = normalization(dist)
     hill = apply_hill(dist_r)              # Hill estimator on the distribution

@@ -1,12 +1,8 @@
 
 
-#=
-
-CONVERT FROM CSV FILE TO MATRIX
-
-=#
-
-#convert csv file to matrix
+"""
+Convert CSV file to matrix.
+"""
 function convert_to_matrix(path)
     new_file = CSV.read(path,DataFrame)
     return Matrix(new_file) #it converts to a matrix form
@@ -24,16 +20,22 @@ end
 
 
 
-#=
+"""
+Returns the absolute error.
 
-DIFFERENCE BETWEEN 2 COMPARABLE VECTORS. EX : DATA AND MEAN_SAMPLES
-
-=#
-
+- "the" stands for Theorical and "exp" for Experimental.
+"""
 function absolute_error(the,exp)
     return abs.(exp-the)
 end
 
+
+
+"""
+Returns the relative error.
+
+- "the" stands for Theorical and "exp" for Experimental.
+"""
 function relative_error(the,exp)
     (exp-the)./abs.(the)
 end
@@ -50,7 +52,9 @@ PLOT DATA AND THE RELATED SAMPLES
 
 =#
 
-#plot the data and the whole predictions for each day
+"""
+Plots the real data and the whole predictions for each day.
+"""
 function plot_samples_data(data,model)
     pdata = plot(data)
     p = plot(data)
@@ -60,7 +64,10 @@ function plot_samples_data(data,model)
     return plot(p,pdata,layout=(2,1),legend = false)
 end
 
-#plot the difference between the mean for each data and the real data
+
+"""
+Plots the difference between the real data the average prediction for each day.
+"""
 function plot_samples_data_mean(data,model)
     p = plot(data)
     meanD = mean_samples(model)
@@ -80,29 +87,11 @@ EXTREME VALUES THEORY
 
 =#
 
-#percent ev values out of total values
-function perc_evt(dist,determine_threshold)
-    n = length(dist)
-    a,b = determine_threshold(dist)
-    c = n-b
-    return (n-c)/n*100
-end
 
 
-# !!! TO CHOOSE BETWEEN THIS ONE AND perc_val_evt !!!
-
-#this one is longer than perc_val_evt
-function perc_val_evt2(data,model,determine_threshold)
-    n = length(data)
-    res = []
-    for i in 1:n
-        append!(res,perc_evt(model[:,i],determine_threshold))
-    end
-    return res
-end
-
-
-#extract ev from the whole dist
+"""
+Extracts ev from the whole distribution.
+"""
 function over_threshold(dist,determine_threshold)
     a,b = determine_threshold(dist)
     res = filter(x -> x>=a,dist)
@@ -110,8 +99,9 @@ function over_threshold(dist,determine_threshold)
 end
 
 
-# !!! TO CHOOSE BETWEEN THIS ONE AND perc_val_evt2 !!!
-# returns the percentage of ev for each day
+"""
+Returns the percentage of ev for each sample.
+"""
 function perc_val_evt(data,model,determine_threshold)
     n = length(data)
     res = []
@@ -125,7 +115,10 @@ function perc_val_evt(data,model,determine_threshold)
 end
 
 
-#IT RETURNS THE BABY DISTRIBUTION FOR EACH DAY
+
+"""
+Returns the ev distribution (only with the ev) for each sample.
+"""
 function over_threshold_total(data,model,determine_threshold)
     m,n = size(model)
     res = []
@@ -136,7 +129,11 @@ function over_threshold_total(data,model,determine_threshold)
 end
 
 
+
+# ????
+
 #test if over_threshold_total is efficient
+# ?? TO USE MAYBE ???
 function test_thre(a,k)
     return [(length(a[i])./k).*100 for i in 1:length(a)]
 end
@@ -160,11 +157,19 @@ FOR EXTREME VALUES ANALYSIS
 
 =#
 
-#for just one column of a child dist (for predictions of a data) after threshold of evt
-# param 1, 2, 3 respectively for μ, σ and ξ
-function fitting_gev(child_dist,param)
-    return gevfit(child_dist).θ̂[param]
+
+"""
+Returns the parameters of the GEV (Generalized Extreme Value) distribution μ, σ and ξ.
+
+Parameter selection :
+    choose param = 1 for μ ; 2 for σ ; 3 for ξ.
+
+- Needs to be used on an ev distribution.
+"""
+function fitting_gev(ev_dist,param)
+    return gevfit(ev_dist).θ̂[param]
 end
+
 
 
 
@@ -180,18 +185,23 @@ TYPES OF WINDOWS FOR THE MODEL
 
 =#
 
-# incremental window
-function incremental_window(data,tn)
-    return data[1:tn]
+
+"""
+Returns the data from the begining to the limit "lim".
+"""
+function incremental_window(data,lim)
+    return data[1:lim]
 end
 
-# moving window
-function moving_window(data,tn)
-    wsize = 100
-    if tn-wsize < 1
-        return data[1:tn]
+
+"""
+Returns the data with a precise size "wsize" until "lim".
+"""
+function moving_window(data,lim,wsize)
+    if lim-wsize < 1
+        return data[1:lim]
     else
-        return data[tn-wsize:tn]
+        return data[lim-wsize:lim]
     end
 end
 
@@ -210,12 +220,23 @@ FIND THE STATIONARY STATE FOR THE DATA
 
 =#
 
-# data[i+1] - data[i] !!!Not the same size!!! length() -= 1
+
+"""
+Returns the difference between elelments.
+
+- The length is length(data) - 1
+- The return data is not necessarily stationary.
+"""
 function diff_values(data)
     return [data[i+1]-data[i] for i in 1:length(data)-1]
 end
 
-# IS THE DATA STATIONARY ?
+
+"""
+Returns a stationay data.
+
+- This method is based the Augmented Dickey-Fuller test (ADFTest).
+"""
 function statio_data(data)
     statio = diff_values(data)
     shift = 1
@@ -245,10 +266,13 @@ CREATE NEW DISTRIBUTIONS BASED ON THE DATA
 
 =#
 
-#you can apply these 2 functions to a stationary data
 
-#fit problem due to cross packages...
-#non parametric
+"""
+Returns probabilities and weights based on the histogram fitting.
+
+- Needs to be applied to a stationary data (like your initial data).
+- k is the number of the elements in your future prediction set.
+"""
 function new_dist_historical(data,k)
     h = GLM.fit(Histogram,data,nbins = k/10)
     val = h.edges[1]
@@ -260,7 +284,13 @@ function new_dist_historical(data,k)
 end
 
 
-#takes a stationary data and Kernel density estimation
+
+"""
+Returns probabilities and weights based on the Kernel density estimation.
+
+- Needs to be applied to a stationary data (like your initial data).
+- k is the number of the elements in your future prediction set.
+"""
 function new_dist_kerneldensity(data,k)
     kerneldist = kde(data)
     val = [i for i in kerneldist.x]
@@ -270,7 +300,13 @@ function new_dist_kerneldensity(data,k)
 end
 
 
-#from prob and weights
+
+"""
+Returns the distribution from a given methods of probabilities and weights selection.
+
+- Needs to be applied to a stationary data (like your initial data) with the selected method.
+- k is the number of the elements in your future prediction set.
+"""
 function new_dist_applier(data,k,method_dist)
     predic = zeros(k,1)
     val,w = method_dist(data,k)
@@ -281,7 +317,13 @@ function new_dist_applier(data,k,method_dist)
 end
 
 
-#test some distribution and find the most convenient
+
+"""
+Returns the most appropriate distribution comparing with Nomal, Laplace and Rayleigh distributions.
+
+- Needs to be applied to a stationary data (like your initial data).
+- k is the number of the elements in your future prediction set.
+"""
 function new_dist_fitting(data,k)
     nbr = k
     n = length(data)
@@ -295,9 +337,9 @@ function new_dist_fitting(data,k)
         statiodata_valid = data[step_*(i+1):end]
         h = GLM.fit(Histogram,statiodata_valid,nbins = Int(round(length(statiodata_valid)/20)))
         #it creates the new distribution
-        d1 = fit_mle(Normal,statiodata_test)
-        d2 = fit_mle(Laplace,statiodata_test)
-        d3 = fit_mle(Rayleigh,statiodata_test)
+        d1 = Distributions.fit_mle(Normal,statiodata_test)
+        d2 = Distributions.fit_mle(Laplace,statiodata_test)
+        d3 = Distributions.fit_mle(Rayleigh,statiodata_test)
         #d4 = fit_mle(Exponential,statiodata_test) #if z > 0 for each value
         #then
         x = [i for i in h.edges[1]]
@@ -350,13 +392,16 @@ TRANSFORM THE model TO MEAN(model)
 =#
 
 
+"""
+Returns the average value for each prediction set.
+"""
 function mean_samples(model)
-    n = size(model)[2]
+    n = LinearAlgebra.size(model)[2]
     meanD = zeros(1,n)
     for i in 1:n
-        meanD[i] = mean(model[:,i])
+        meanD[i] = StatsBase.mean(model[:,i])
     end
-    return vec(meanD)
+    return LinearAlgebra.vec(meanD)
 end
 
 
@@ -383,9 +428,13 @@ CALCULUS OF MOMENTS FOR A DISTRIBUTION
 =#
 
 
-#you can apply a function (like var) to a m*n size list TO COLULN !
-function applier(f,list)
-    m,n = size(list)
+"""
+Applies a function f to an array m*n (like your model).
+
+This function is mainly used for calculating the first four moments.
+"""
+function applier(f,model)
+    m,n = LinearAlgebra.size(model)
     res = [f(list[:,i]) for i in 1:n]
     return res
 end

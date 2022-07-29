@@ -20,30 +20,7 @@ using Decimals
 
 
 
-
-
-
-function back_testing_fake(data,model)
-    m,n = size(model)
-    if n != length(data)
-        return println("size problem between your vectors")
-    end
-
-    diff = mean_diff(data,model)
-
-    m,s,skew,kurto = moments_calculus(model)
-
-    if minimum(kurto) >= 6          # means a long tail
-
-    end
-    #count_data_out = quantiles_test(data,model)
-    res = opinions_on_the_model(data,model)
-    #return count_data_out
-    return res
-end
-
-
-
+# import GLM
 
 
 
@@ -58,12 +35,17 @@ SIMPLE COMPARAISON  BETWEEN THE MEAN OF PREDICTION AND THE REAL DATA FOR EACH DA
 =#
 
 
-# visual plot to analyse
+"""
+Plots the average values of the model and the real data associated.
+"""
 function back_real_vs_meanPred_plot(data::Vector,model::Matrix)
     return plot_samples_data_mean(data,model)
 end
 
-# values of the difference between these values
+
+"""
+Returns the difference between the average of a prediction set and the real data.
+"""
 function back_real_vs_meanpred(data::Vector,model::Matrix)
     return mean_diff(data,model)
 end
@@ -82,7 +64,12 @@ FOURIER TRANSFORM TO DETECT A POSSIBLE FREQUENCY OF ERROR
 =#
 
 
-# option 1 : values ; option 2 : FT plot
+
+"""
+Returns the Fourier Transform of the difference between the average of a prediction set and the real data.
+
+- Option : 1 for all values; 2 for FT plot.
+"""
 function back_periodicity(data::Vector,model::Matrix,option::Integer)
     freqs,F = find_period_error(data,model)
     if option == 1
@@ -120,9 +107,9 @@ end
 
 
 """
+Returns the percentage of ev out of the whole model, depending on the chosen algorithm.
 
-THE PERCENTAGE OF EV OUT OF THE WHOLE MODEL
-
+- Option : 1 for all values; 2 for the mean; 3 for the maximum; 4 for the minimum.
 """
 function back_perc_ev(data::Vector,model::Matrix,determine_threshold_algorithm,option::Integer)
     if option == 1
@@ -140,14 +127,10 @@ end
 
 
 
-#=
 
-EV SCORE ACCORDING TO THE FORMULA
-
-=#
-
-
-# !!! most powerfull tool !!!
-function back_testing(data::Vector,model::Matrix,determine_threshold_algorithm)
+"""
+Returns the EV score, depending on the chosen algorithm.
+"""
+function back_testingEV(data::Vector,model::Matrix,determine_threshold_algorithm)
     return ev(data,model,determine_threshold_algorithm)
 end
