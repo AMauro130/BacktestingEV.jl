@@ -105,4 +105,7 @@ Thus, according to your model the following table will help you to **choose the 
 Here are the links to the datasets used in the table for the threshold selecrtion:
 
 Also some sources about EVT
+
+- http://ceaul.org/wp-content/uploads/2018/10/NotaCom07.pdf
+
 (to fill in)
