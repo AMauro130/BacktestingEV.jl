@@ -1,11 +1,11 @@
-
-
-
 #=
 
-THOSE FUNCTIONS ARE CALCULUS FUNCTIONS FOR CRITERIAS
+THIS FILES CONTAINS THE BACK-TESTING CRITERIAS
 
 =#
+
+
+
 
 
 """
@@ -37,12 +37,6 @@ function find_period_error(data,model)
     p2 = plot(freqs,abs.(F))
     return freqs,abs.(F)
 end
-
-
-
-
-
-
 
 
 

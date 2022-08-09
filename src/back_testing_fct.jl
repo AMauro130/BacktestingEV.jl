@@ -35,6 +35,7 @@ SIMPLE COMPARAISON BETWEEN THE MEAN OF PREDICTION AND THE REAL DATA FOR EACH DAY
 =#
 
 
+
 """
 Plots the average values of the model and the real data associated.
 """
@@ -43,15 +44,13 @@ function back_real_vs_meanPred_plot(data::Vector,model::Matrix)
 end
 
 
+
 """
 Returns the difference between the average of a prediction set and the real data.
 """
 function back_real_vs_meanpred(data::Vector,model::Matrix)
     return mean_diff(data,model)
 end
-
-
-
 
 
 
@@ -122,9 +121,6 @@ function back_perc_ev(data::Vector,model::Matrix,determine_threshold_algorithm,o
         return minimum(perc_val_evt(data,model,determine_threshold_algorithm))
     end
 end
-
-
-
 
 
 

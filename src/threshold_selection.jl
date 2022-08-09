@@ -1,9 +1,10 @@
-
 #=
 
-HILL ESTIMATOR APPLIED TO THE 10% EV
+THE HILL ESTIMATOR IS APPLIED TO THE 10% OF THE EV
 
 =#
+
+
 
 """
 Returns the Hill estimator on a distribution of order k.
@@ -35,9 +36,10 @@ function apply_hill(dist)
 end
 
 
-#useful for the magic number
 """
 Returns the first position from which the "data" exceeds the threshold "thres"
+
+- This function is useful for the magic numner method.
 """
 function over_stop(data,thres)
     data = replace(data, NaN => 0)     #if error
@@ -52,6 +54,8 @@ end
 
 
 
+
+
 #=
 
 NORMALIZATION AND DENORMALIZATION
@@ -59,6 +63,8 @@ NORMALIZATION AND DENORMALIZATION
 (to work between 0 and 1, no negative values)
 
 =#
+
+
 
 """
 Returns a normalized distribution between 0 and 1.
@@ -110,6 +116,7 @@ DETERMINE THRESHOLD 1
 =#
 
 
+
 """
 Returns the regression model of the left side of the distribution.
 
@@ -123,6 +130,7 @@ function reg_new_left(dist)
     p1 = plot(x, y)
     return y1
 end
+
 
 """
 Returns the regression model of the right side of the distribution.
@@ -138,6 +146,7 @@ function reg_new_right(dist)
     return y1
 end
 
+
 """
 Returns the relative error between the distribution and the regression model.
 
@@ -150,6 +159,7 @@ function err(dist1,dist2,reg1,reg2)
     m2 = sum(e2)
     return abs(m1),abs(m2)
 end
+
 
 """
 Returns moment at which the Hill estimator becomes linear.
@@ -208,7 +218,6 @@ end
 
 
 
-
 #=
 
 DETERMINE THRESHOLD OF EV 2
@@ -216,6 +225,8 @@ DETERMINE THRESHOLD OF EV 2
 (based on the regression of the derivative of the hill estimator)
 
 =#
+
+
 
 """
 R
@@ -304,8 +315,6 @@ end
 
 
 
-
-
 #=
 
 DETERMINE THE THRESHOLD OF EV 3
@@ -315,6 +324,9 @@ DETERMINE THE THRESHOLD OF EV 3
 =#
 
 
+"""
+R
+"""
 function determine_threshold3(dist)
     dist_r,max,min,len = normalization(dist)
     hill = apply_hill(dist_r)              # Hill estimator on the distribution
@@ -338,7 +350,6 @@ end
 
 
 
-
 #=
 
 DETERMINE THE THRESHOLD OF EV 4
@@ -348,6 +359,11 @@ DETERMINE THE THRESHOLD OF EV 4
 
 =#
 
+
+
+"""
+R
+"""
 function param_decim(samples)
     n = length(samples)
     param = decimal.(samples)
@@ -357,6 +373,9 @@ function param_decim(samples)
 end
 
 
+"""
+R
+"""
 function max_j(T)
     n = length(T)
     decim,nb_decim = param_decim(T)
@@ -369,11 +388,17 @@ function max_j(T)
 end
 
 
+"""
+R
+"""
 function akj(T,j)
     return round.(T,digits=j)
 end
 
 
+"""
+R
+"""
 function consec(T,j)
     diff1 = akj(diff_values(akj(T,j)),j)
     res_int = filter(i->diff1[i]==0,1:length(diff1))
@@ -386,6 +411,10 @@ function consec(T,j)
     return j
 end
 
+
+"""
+R
+"""
 #first 2 consecituves elements
 function thre_from_consec(T,j)
     diff1 = akj(diff_values(akj(T,j-2)),j-2)
