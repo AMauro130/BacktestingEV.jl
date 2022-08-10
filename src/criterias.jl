@@ -5,9 +5,6 @@ THIS FILES CONTAINS THE BACK-TESTING CRITERIAS
 =#
 
 
-
-
-
 """
 Returns the difference between the average of a prediction set and the real data.
 """
@@ -16,7 +13,6 @@ function mean_diff(data,model)
     diff = absolute_error(data,meanS)
     return diff
 end
-
 
 
 """
@@ -39,7 +35,6 @@ function find_period_error(data,model)
 end
 
 
-
 """
 Returns the first four moments.
 """
@@ -50,13 +45,6 @@ function moments_calculus(model)
     d = applier(kurtosis,model)
     return a,b,c,d
 end
-
-
-
-
-
-
-
 
 
 
@@ -110,20 +98,11 @@ end
 
 
 
-
-
-
-
-
-
-
-
 #=
 
 EXTREME VALUES THEORY AND ANALYSE
 
 =#
-
 
 
 """
@@ -151,15 +130,11 @@ end
 
 
 
-
-
-
 #=
 
 WHAT ABOUT THIS ?? THE ASSOCIATED FILES IN NON_USE.JL
 
 =#
-
 
 
 """

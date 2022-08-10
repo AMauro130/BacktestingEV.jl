@@ -5,7 +5,6 @@ THE HILL ESTIMATOR IS APPLIED TO THE 10% OF THE EV
 =#
 
 
-
 """
 Returns the Hill estimator on a distribution of order k.
 """
@@ -65,7 +64,6 @@ NORMALIZATION AND DENORMALIZATION
 =#
 
 
-
 """
 Returns a normalized distribution between 0 and 1.
 
@@ -95,17 +93,6 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 #=
 
 DETERMINE THRESHOLD OF EV 1
@@ -114,7 +101,6 @@ DETERMINE THRESHOLD OF EV 1
 (used with the hill estimator)
 
 =#
-
 
 
 """
@@ -227,7 +213,6 @@ DETERMINE THRESHOLD OF EV 2
 =#
 
 
-
 """
 Returns the linear regression from (x,y).
 """
@@ -236,6 +221,7 @@ function line_reg(x,y)
     res = lm(@formula(Y ~ X), data)
     return res
 end
+
 
 """
 Returns the values outside the bounds (95% above and 95% below the regression).
@@ -351,7 +337,6 @@ DETERMINE THRESHOLD OF EV 4
 (Algorithm 5 pdf)
 
 =#
-
 
 
 """
@@ -483,7 +468,6 @@ DETERMINE THRESHOLD OF EV 5
 =#
 
 
-
 """
 Returns the linear regression of the Hill estimator.
 """
@@ -504,6 +488,7 @@ function T2_creator(T)
     T2 = hill_estimator_reg(T)
     return abs.(T-T2)
 end
+
 
 """
 DETERMINE THRESHOLD OF EV 5

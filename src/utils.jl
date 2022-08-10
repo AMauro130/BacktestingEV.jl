@@ -1,3 +1,8 @@
+#=
+
+THIS FILES CONTAINS ALL THE USEFUL FUNCTIONS
+
+=#
 
 
 """
@@ -9,17 +14,6 @@ function convert_to_matrix(path)
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
 """
 Returns the absolute error.
 
@@ -28,7 +22,6 @@ Returns the absolute error.
 function absolute_error(the,exp)
     return abs.(exp-the)
 end
-
 
 
 """
@@ -44,13 +37,12 @@ end
 
 
 
-
-
 #=
 
 PLOT DATA AND THE RELATED SAMPLES
 
 =#
+
 
 """
 Plots the real data and the whole predictions for each day.
@@ -79,14 +71,11 @@ end
 
 
 
-
-
 #=
 
 EXTREME VALUES THEORY
 
 =#
-
 
 
 """
@@ -115,7 +104,6 @@ function perc_val_evt(data,model,determine_threshold)
 end
 
 
-
 """
 Returns the ev distribution (only with the ev) for each sample.
 """
@@ -127,25 +115,6 @@ function over_threshold_total(data,model,determine_threshold)
     end
     return res
 end
-
-
-
-# ????
-
-#test if over_threshold_total is efficient
-# ?? TO USE MAYBE ???
-function test_thre(a,k)
-    return [(length(a[i])./k).*100 for i in 1:length(a)]
-end
-
-
-
-
-
-
-
-
-
 
 
 
@@ -169,11 +138,6 @@ Parameter selection :
 function fitting_gev(ev_dist,param)
     return gevfit(ev_dist).θ̂[param]
 end
-
-
-
-
-
 
 
 
@@ -204,11 +168,6 @@ function moving_window(data,lim,wsize)
         return data[lim-wsize:lim]
     end
 end
-
-
-
-
-
 
 
 
@@ -253,13 +212,6 @@ end
 
 
 
-
-
-
-
-
-
-
 #=
 
 CREATE NEW DISTRIBUTIONS BASED ON THE DATA
@@ -284,7 +236,6 @@ function new_dist_historical(data,k)
 end
 
 
-
 """
 Returns probabilities and weights based on the Kernel density estimation.
 
@@ -298,7 +249,6 @@ function new_dist_kerneldensity(data,k)
 
     return val,w
 end
-
 
 
 """
@@ -315,7 +265,6 @@ function new_dist_applier(data,k,method_dist)
     end
     return predic
 end
-
 
 
 """
@@ -366,25 +315,6 @@ end
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #=
 
 TRANSFORM THE model TO MEAN(model)
@@ -403,19 +333,6 @@ function mean_samples(model)
     end
     return LinearAlgebra.vec(meanD)
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
