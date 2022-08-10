@@ -225,7 +225,7 @@ FIND THE STATIONARY STATE FOR THE DATA
 Returns the difference between elelments.
 
 - The length is length(data) - 1
-- The return data is not necessarily stationary.
+- The returned data is not necessarily stationary.
 """
 function diff_values(data)
     return [data[i+1]-data[i] for i in 1:length(data)-1]

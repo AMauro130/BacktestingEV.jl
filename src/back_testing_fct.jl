@@ -26,14 +26,11 @@ using Decimals
 
 
 
-
-
 #=
 
 SIMPLE COMPARAISON BETWEEN THE MEAN OF PREDICTION AND THE REAL DATA FOR EACH DAY
 
 =#
-
 
 
 """
@@ -42,7 +39,6 @@ Plots the average values of the model and the real data associated.
 function back_real_vs_meanPred_plot(data::Vector,model::Matrix)
     return plot_samples_data_mean(data,model)
 end
-
 
 
 """
@@ -61,7 +57,6 @@ end
 FOURIER TRANSFORM TO DETECT A POSSIBLE FREQUENCY OF ERROR
 
 =#
-
 
 
 """
@@ -84,12 +79,18 @@ end
 
 #=
 
-FITS GEV PARAMETERS (GEV(µ,σ,ξ))
+FITS GEV PARAMETERS (GEV(µ,σ,ξ)), MEAN, MAX AND MIN.
 
 =#
 
 
-# is it helpful ?
+"""
+Returns the parameters of Generalized Extreme Value (GEV) distribution.
+
+- To be used if you want to associated the shape of your model to a Generalized Extreme Value (GEV) distribution.
+- Param : 1 for μ; 2 for σ and 3 for ξ
+- Option : 1 for the whole data; 2 for the mean; 3 for the maximum and 4 for the minimum.
+"""
 function back_fitting_ev(data::Vector,model::Matrix,determine_threshold_algorithm,param::Integer,option::Integer)
     if option == 1
         return analyse_extreme_values(data,model,determine_threshold_algorithm,param)
@@ -101,8 +102,6 @@ function back_fitting_ev(data::Vector,model::Matrix,determine_threshold_algorith
         return minimum(analyse_extreme_values(data,model,determine_threshold_algorithm,param))
     end
 end
-
-
 
 
 """
@@ -122,6 +121,15 @@ function back_perc_ev(data::Vector,model::Matrix,determine_threshold_algorithm,o
     end
 end
 
+
+
+
+
+#=
+
+EV SCORE, MOST IMPORTANT FUNCTION!
+
+=#
 
 
 """

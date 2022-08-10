@@ -108,7 +108,7 @@ end
 
 #=
 
-DETERMINE THRESHOLD 1
+DETERMINE THRESHOLD OF EV 1
 
 (based on the area under the curve, the difference between the regression and the real estipmator)
 (used with the hill estimator)
@@ -229,46 +229,36 @@ DETERMINE THRESHOLD OF EV 2
 
 
 """
-R
+Returns the linear regression from (x,y).
 """
 function line_reg(x,y)
     data = DataFrame(X=x, Y=y)
     res = lm(@formula(Y ~ X), data)
-    # lm1 = fit(LinearModel, @formula(Y ~ X), data)
-    # return res.model.pp.beta0
-    # return plot(res.model.rr.mu)
     return res
 end
 
 """
-R
+Returns the values outside the bounds (95% above and 95% below the regression).
 """
 function creator_function_regression(x,y)
-    res = line_reg(x,y)                        # linear regression
+    res = line_reg(x,y)
     meanA,meanB = coeftable(res).cols[1,:][1]
     maxA,maxB = coeftable(res).cols[6,:][1]
     minA,minB = coeftable(res).cols[5,:][1]
     f(u) = meanB .* u .+ meanA
     f1(u) = maxB .* u .+ maxA
     f2(u) = minB .* u .+ minA
-    # vUpp = filter(i -> y[i]>f1(i),x)
-    # vLow = filter(i -> y[i]<f2(i),x)
     valUpLow = filter(i -> (f1(i)<y[i])||(y[i]<f2(i)),x)
-    scatter(x,y)
-    plot!(x,f)
-    plot!(x,f1)
-    # return vUpp,vLow
     return valUpLow
 end
 
 
 """
-R
+Returns the position of the first ev.
 """
 function is_ev_test(ul)
     ul_bis = diff_values(ul)
     n = length(ul_bis)
-    # thre = Int(round(0.01 * n))
     thre = 5
     i = 1
     s = 0
@@ -285,27 +275,27 @@ end
 
 
 """
-R
+DETERMINE THRESHOLD OF EV 2
+
+- Based on the regression of the derivative of the hill estimator.
 """
 function determine_threshold2(dist)
     dist_r,max,min,len = normalization(dist)
     hill = apply_hill(dist_r)              # Hill estimator on the distribution
     deriva = diff_values(hill)             # Derivative of the estimator for detect the linear moment
-    deriva = reverse(deriva)               # To use over_stop with 0.004
+    deriva = reverse(deriva)
     n = length(deriva)
     hill = convert.(Float64,hill)
     x = [i for i in 1:length(deriva)]
-    # x = [i for i in 1:length(hill)]
     ul = creator_function_regression(x,deriva)
-    # ul = creator_function_regression(x,hill)
     if length(ul) == 0
         res = 0
     else
         res = is_ev_test(ul)
     end
     res = n-res                            # Number of extreme values starting from the end
-    di = sort(dist_r)                       # Sorts for extract the first ev
-    di = reverse(di)                         # Reverse to start with the highest values
+    di = sort(dist_r)                      # Sorts for extract the first ev
+    di = reverse(di)                       # Reverse to start with the highest values
     d_res = di[res]
     s = denormalization(d_res,max,min,len)
     return s,res
@@ -317,7 +307,7 @@ end
 
 #=
 
-DETERMINE THE THRESHOLD OF EV 3
+DETERMINE THRESHOLD OF EV 3
 
 (based on my magic number)
 
@@ -325,22 +315,25 @@ DETERMINE THE THRESHOLD OF EV 3
 
 
 """
-R
+DETERMINE THRESHOLD OF EV 3
+
+- See DETERMINE THE THRESHOLD OF EV 2 for documentation.
+- Based on my magic number.
 """
 function determine_threshold3(dist)
     dist_r,max,min,len = normalization(dist)
     hill = apply_hill(dist_r)              # Hill estimator on the distribution
     deriva = diff_values(hill)             # Derivative of the estimator for detect the linear moment
-    deriva = reverse(deriva)               # To use over_stop with 0.004
+    deriva = reverse(deriva)
     n = length(deriva)
     hill = convert.(Float64,hill)
-    res = over_stop(deriva,0.004)        # 0.004 empirical value for detection
+    res = over_stop(deriva,0.004)          # 0.004 empirical value for detection
     res = n-res                            # Number of extreme values starting from the end
-    di = sort(dist_r)                       # Sorts for extract the first ev
+    di = sort(dist_r)                      # Sorts for extract the first ev
     di = reverse(di)
     if res == 0
         res = 1
-    end                         # Reverse to start with the highest values
+    end
     d_res = di[res]
     s = denormalization(d_res,max,min,len)
     return s,res
@@ -352,7 +345,7 @@ end
 
 #=
 
-DETERMINE THE THRESHOLD OF EV 4
+DETERMINE THRESHOLD OF EV 4
 
 (based on deciamls, counting consecutives values)
 (Algorithm 5 pdf)
@@ -362,7 +355,7 @@ DETERMINE THE THRESHOLD OF EV 4
 
 
 """
-R
+Returns the decimal from each sample and the associated number of decimal places.
 """
 function param_decim(samples)
     n = length(samples)
@@ -374,7 +367,7 @@ end
 
 
 """
-R
+Returns the highest number of decimal places.
 """
 function max_j(T)
     n = length(T)
@@ -389,7 +382,7 @@ end
 
 
 """
-R
+Returns the samples rounded to the j th decimal place.
 """
 function akj(T,j)
     return round.(T,digits=j)
@@ -397,12 +390,11 @@ end
 
 
 """
-R
+Returns the number of decimal places from which two samples are identical.
 """
 function consec(T,j)
     diff1 = akj(diff_values(akj(T,j)),j)
     res_int = filter(i->diff1[i]==0,1:length(diff1))
-
     while length(res_int) == 0
         j -= 1
         diff1 = akj(diff_values(akj(T,j)),j)
@@ -413,15 +405,20 @@ end
 
 
 """
-R
+Returns the diff_values(data) of the akj(T,j-2).
+
+- To be used after knowing the number "j" from consec(T,j).
 """
-#first 2 consecituves elements
 function thre_from_consec(T,j)
     diff1 = akj(diff_values(akj(T,j-2)),j-2)
     res_int = filter(i->diff1[i]==0,1:length(diff1))
     return res_int
 end
 
+
+"""
+Returns the number of decimal places from which two samples are consecutive.
+"""
 function consecutive_values(res_int)
     n = length(res_int)
     res = []
@@ -430,7 +427,6 @@ function consecutive_values(res_int)
         res_mem = [1]
         return res_mem[1]
     end
-
     i = 1
     while i<n
         if (res_int[i+1]-res_int[i]) == 1
@@ -443,8 +439,7 @@ function consecutive_values(res_int)
         end
         i+=1
     end
-
-    # means all the values in res_int are consecutives, so res is res_int
+    # means that all the values in res_int are consecutives, so res is res_int
     # means that there are not 3 consecutives values, so we take the first 2 consecutives values
     if length(res_mem)==0
         res_mem = res_int[1]
@@ -452,6 +447,13 @@ function consecutive_values(res_int)
     return res_mem[1]
 end
 
+
+"""
+DETERMINE THRESHOLD OF EV 4
+
+- Based on deciamls, counting consecutives values.
+- Algorithm 5 pdf.
+"""
 function determine_threshold4(dist)
     n = length(dist)
     dist_r,max,min,len = normalization(dist)
@@ -470,14 +472,21 @@ end
 
 
 
+
+
 #=
 
-DETERMINE THE THRESHOLD OF EV 5
+DETERMINE THRESHOLD OF EV 5
 
 (based on the previous algorithm but applied to the regression)
 
 =#
 
+
+
+"""
+Returns the linear regression of the Hill estimator.
+"""
 function hill_estimator_reg(T)
     t = convert.(Float64,T)
     x = [i for i in 1:length(t)]
@@ -487,11 +496,20 @@ function hill_estimator_reg(T)
     return [f(i) for i in x]
 end
 
+
+"""
+Returns the new T "T2" from the regression of the Hill estimator of T.
+"""
 function T2_creator(T)
     T2 = hill_estimator_reg(T)
     return abs.(T-T2)
 end
 
+"""
+DETERMINE THRESHOLD OF EV 5
+
+- Based on the previous algorithm but applied to the regression.
+"""
 function determine_threshold5(dist)
     n = length(dist)
     dist_r,max,min,len = normalization(dist)
@@ -507,9 +525,7 @@ function determine_threshold5(dist)
     r = n-res
     s = denormalization(d[r],max,min,len)
     return s,res
-    # return res
 end
-
 
 
 
@@ -517,19 +533,27 @@ end
 
 #=
 
-DETERMINE THE THRESHOLD OF EV 6
+DETERMINE THRESHOLD OF EV 6
 
-(based on hill and beta estimator)
+(based on Hill and Beta estimators)
 (Algorithm 1 pdf)
 
 =#
 
+
+"""
+Returns the M function from step 1.
+"""
 function M(samples,k,j)
     n = length(samples)
     res = sum([(log(samples[n-i+1])-log(samples[n-k]))^j for i in 1:k])./k
     return res
 end
 
+
+"""
+Returns the W function from step 1.
+"""
 function W(samples,k,tau)
     W1 = ((M(samples,k,1)^tau)-(M(samples,k,2)/2)^(tau/2))/((M(samples,k,2)/2)^(tau/2)-(M(samples,k,3)/6)^(tau/3))
     W2 = (log(M(samples,k,1))-log(M(samples,k,2)/2)/2)/((log(M(samples,k,2)/2)/2)-log(M(samples,k,3)/6)/3)
@@ -540,28 +564,48 @@ function W(samples,k,tau)
     end
 end
 
+
+"""
+Returns the Rho estimator from step 1.
+"""
 function rho_estimator(samples,k,tau)
     samples = sort(samples)
     res = -abs( 3*(W(samples,k,tau)-1)/(W(samples,k,tau)-3) )
     return res
 end
 
+
+"""
+Returns the U function from step 3.
+"""
 function U(samples,i)
     n = length(samples)
     res = i*(log(samples[n-i+1])-log(samples[n-i]))
     return res
 end
 
+
+"""
+Returns the d function from step 3.
+"""
 function d(k,alpha)
     res = sum([(i/k)^(-alpha) for i in 1:k])./k
     return res
 end
 
+
+"""
+Returns the D function from step 3.
+"""
 function D(samples,k,alpha)
     res = sum([((i/k)^(-alpha))*U(samples,i) for i in 1:k])./k
     return res
 end
 
+
+"""
+Returns the Beta estimator from step 3.
+"""
 function beta_estimator(samples,k,tau)
     n = length(samples)
     samples = sort(samples)
@@ -571,6 +615,10 @@ function beta_estimator(samples,k,tau)
     return bi
 end
 
+
+"""
+Returns tau (0 or 1) from step 2.
+"""
 function step2(samples)
     n = length(samples)
     k1 = Int(round(n^0.995))
@@ -600,6 +648,9 @@ function step2(samples)
 end
 
 
+"""
+Returns Rho and Beta values from both estimators.
+"""
 function step3(samples)
     n = length(samples)
     k01 = Int(round(n^0.999))
@@ -613,6 +664,9 @@ function step3(samples)
 end
 
 
+"""
+Returns k0h from step 4.
+"""
 function step4(samples)
     n = length(samples)
     beta,rho = step3(samples)
@@ -626,6 +680,10 @@ function step4(samples)
     end
 end
 
+
+"""
+Returns the threshold and its associated position.
+"""
 function step5(dist)
     n = length(dist)
     dist_r,max,min,len = normalization(dist)
@@ -634,7 +692,6 @@ function step5(dist)
     samples = sort(dist_r)
     samples = samples[k2:end]
     res = step4(samples)
-    # return scatter(res)
     di = sort(dist_r)                       # Sorts for extract the first ev
     di = reverse(di)                         # Reverse to start with the highest values
     d_res = di[res]
@@ -642,6 +699,13 @@ function step5(dist)
     return s,res
 end
 
+
+"""
+DETERMINE THE THRESHOLD OF EV 6
+
+- Based on Hill and Beta estimators.
+- Algorithm 1 pdf.
+"""
 function determine_threshold6(dist)
     return step5(dist)
 end
