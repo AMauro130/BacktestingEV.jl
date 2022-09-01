@@ -32,11 +32,8 @@ A meaninful part of the work has been granted to the **Extreme Values Theory (EV
 
 ## Requirements
 
-To use this package properly, you need to provide _2 objects_ : **1 vector** (with length n) for the *real data* and **1 matrix** (m by n) containing the predictions.
+To use this package properly, you need to provide _2 objects_ : **1 vector** (with length n) for the *real data* and **1 matrix** (m by n) containing the predictions for each time slot associated.
 
-(precise what kind of prediction array)
-
-*Note : (n rows by m columns)*
 
 
 ###### Example
