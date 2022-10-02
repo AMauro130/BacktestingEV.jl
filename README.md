@@ -32,13 +32,13 @@ A meaninful part of the work has been granted to the **Extreme Values Theory (EV
 
 ## Requirements
 
-To use this package properly, you need to provide _2 objects_ : **1 vector** (with length n) for the *real data* and **1 matrix** (m by n) containing the predictions for each time slot associated.
+To use this package properly, you need to provide _2 objects_: **1 vector** (with length n) for the *real data* and **1 matrix** (m by n) containing the predictions for each time slot associated.
 
 
 
 ###### Example
 
-From a CSV file :
+From a CSV file:
 
 ```
 data = convert_to_matrix("D:\\users\\your_project\\simulation\\data.csv")
